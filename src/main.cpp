@@ -1,6 +1,7 @@
 #include <raylib.h>
-#include "colors.h"
-#include "spaceship.h"
+#include "colors.hpp"
+#include "game.hpp"
+#include "obstacle.hpp"
 
 
 int main() 
@@ -10,13 +11,15 @@ int main()
 
     InitWindow(windowWidth, windowHeight, "C++ Space Invaders");
     SetTargetFPS(60);
-    Spaceship spaceship;
+    Game game;
+   
 
     while(!WindowShouldClose()) {
+        game.HandleInput();
+        game.Update();
         BeginDrawing();
         ClearBackground(grey);
-        spaceship.Draw();
-
+        game.Draw();
         EndDrawing();
     }
 
