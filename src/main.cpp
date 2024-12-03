@@ -2,6 +2,7 @@
 #include "colors.hpp"
 #include "game.hpp"
 #include "obstacle.hpp"
+#include "alien.hpp"
 
 
 int main() 
@@ -12,6 +13,7 @@ int main()
     InitWindow(windowWidth, windowHeight, "C++ Space Invaders");
     SetTargetFPS(60);
     Game game;
+    
    
 
     while(!WindowShouldClose()) {
@@ -20,6 +22,7 @@ int main()
         BeginDrawing();
         ClearBackground(grey);
         game.Draw();
+        
         EndDrawing();
     }
 
