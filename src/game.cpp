@@ -129,6 +129,105 @@ void Game::AlienShootLaser()
     }
 }
 
+void Game::CheckForCollisions()
+{
+    // Spaceship Lasers
+    for(auto& laser : spaceship.lasers)
+    {
+        auto it = aliens.begin();
+        while (it != aliens.end())
+        {
+            if(CheckCollisionRecs(it -> getHitBox(), laser.getHitBox()))
+            {
+                it = aliens.erase(it);
+                laser.active = false;
+            }
+            else 
+            {
+                ++it;
+            }
+        }
+
+        for(auto& obstacle : obstacles) 
+        {
+            auto it = obstacle.blocks.begin();
+            while(it != obstacle.blocks.end())
+            {
+                if(CheckCollisionRecs(it -> getHtBox(), laser.getHitBox()))
+                {
+                    it = obstacle.blocks.erase(it);
+                    laser.active = false;
+                }
+                else 
+                {
+                    ++it;
+                }
+            }
+        }
+
+        if(CheckCollisionRecs(mysteryShip.getHitBox(), laser.getHitBox()))
+        {
+            mysteryShip.alive = false;
+            laser.active =false;
+        }
+        
+    }
+
+    // Alien Lasers
+    for(auto& laser : alienLasers)
+    {
+        if(CheckCollisionRecs(spaceship.getHitBox(), laser.getHitBox()))
+        {
+            laser.active = false;
+        }
+
+        for(auto& obstacle : obstacles) 
+        {
+            auto it = obstacle.blocks.begin();
+            while(it != obstacle.blocks.end())
+            {
+                if(CheckCollisionRecs(it -> getHtBox(), laser.getHitBox()))
+                {
+                    it = obstacle.blocks.erase(it);
+                    laser.active = false;
+                }
+                else 
+                {
+                    ++it;
+                }
+            }
+        }
+        
+    }
+
+    // Alien Collision with obstacle
+
+    for(auto& alien : aliens)
+    {
+        for(auto& obstacle : obstacles)
+        {
+            auto it = obstacle.blocks.begin();
+            while (it != obstacle.blocks.end())
+            {
+                if(CheckCollisionRecs(it -> getHtBox(), alien.getHitBox()))
+                {
+                    it = obstacle.blocks.erase(it);
+                }
+                else 
+                {
+                    ++it;
+                }
+            }
+            
+        }
+
+        if(CheckCollisionRecs(alien.getHitBox(), spaceship.getHitBox()))
+        {
+            
+        }
+    }
+}
+
 void Game::Update() 
 {
     double currentTime = GetTime();
@@ -152,6 +251,8 @@ void Game::Update()
     }
     DeleteInactiveLasers();
     mysteryShip.Update();
+
+    CheckForCollisions();
    
 }
 

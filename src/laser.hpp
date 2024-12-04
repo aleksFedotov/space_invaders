@@ -10,6 +10,7 @@ public:
     Laser(Vector2 position, int speed);
     void Update();
     void Draw();
+    Rectangle getHitBox();
     bool active;
 };
 

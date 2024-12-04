@@ -14,6 +14,7 @@ public:
     void Update();
     void Draw();
     void Spawn();
+    Rectangle getHitBox();
     bool alive;
 };
 
