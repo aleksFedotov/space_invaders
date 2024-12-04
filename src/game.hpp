@@ -3,6 +3,7 @@
 #include "spaceship.hpp"
 #include "obstacle.hpp"
 #include "alien.hpp"
+#include "mysteryship.hpp"
 
 
 class Game
@@ -21,6 +22,9 @@ private:
     std::vector<Laser> alienLasers;
     constexpr  static float aleinLaserShootInterval = 0.35;
     float timeLastAlienFired;
+    MysteryShip mysteryShip;
+    float mysteryShipSpawnInterval;
+    float lastTimeSpawn;
 public:
     Game();
     ~Game();
