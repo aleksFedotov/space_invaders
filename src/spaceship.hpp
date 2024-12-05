@@ -21,6 +21,7 @@ public:
     Rectangle getHitBox();
     void Reset();
     std::vector<Laser> lasers;
+    Sound laserSound;
     
 };
 

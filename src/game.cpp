@@ -6,12 +6,17 @@
 
 Game::Game()
 {
+    music = LoadMusicStream("Sounds/music.ogg");
+    explosionSound = LoadSound("Sounds/explosion.ogg");
+    PlayMusicStream(music);
     InitGame();
 }
 
 Game::~Game() 
 {
-   Alien::UnloadImages();
+    Alien::UnloadImages();
+    UnloadMusicStream(music);
+    UnloadSound(explosionSound);
 }
 
 void Game::DeleteInactiveLasers()
@@ -135,6 +140,7 @@ void Game::CheckForCollisions()
         {
             if(CheckCollisionRecs(it -> getHitBox(), laser.getHitBox()))
             {
+                PlaySound(explosionSound);
                 if(it -> type == 1)
                 {
                     score += 100;
@@ -179,6 +185,8 @@ void Game::CheckForCollisions()
             laser.active =false;
             score += 500;
             checkForHighScore();
+            PlaySound(explosionSound);
+
         }
         
     }

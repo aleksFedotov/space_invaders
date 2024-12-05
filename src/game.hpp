@@ -32,6 +32,7 @@ private:
     MysteryShip mysteryShip;
     float mysteryShipSpawnInterval;
     float lastTimeSpawn;
+    Sound explosionSound;
 public:
     Game();
     ~Game();
@@ -42,5 +43,6 @@ public:
     int lives;
     int score;
     int highScore;
+    Music music;
 };
 
