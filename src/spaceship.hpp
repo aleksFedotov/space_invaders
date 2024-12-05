@@ -19,6 +19,7 @@ public:
     void MoveRight();
     void FireLaser();
     Rectangle getHitBox();
+    void Reset();
     std::vector<Laser> lasers;
     
 };
