@@ -19,6 +19,9 @@ private:
     void GameOver();
     void Reset();
     void InitGame();
+    void checkForHighScore();
+    void saveHighScoreToFile(int highScore);
+    int loadHighScoreFromFile();
     std::vector<Obstacle> obstacles;
     std::vector<Alien> aliens;
     Spaceship spaceship;
@@ -38,5 +41,6 @@ public:
     bool run;
     int lives;
     int score;
+    int highScore;
 };
 

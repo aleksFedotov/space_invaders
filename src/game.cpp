@@ -1,11 +1,11 @@
 #include "game.hpp"
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 
 Game::Game()
 {
-    
     InitGame();
 }
 
@@ -135,18 +135,19 @@ void Game::CheckForCollisions()
         {
             if(CheckCollisionRecs(it -> getHitBox(), laser.getHitBox()))
             {
-                it = aliens.erase(it);
-                laser.active = false;
                 if(it -> type == 1)
                 {
                     score += 100;
                 } else if(it -> type == 2)
                 {
-                    score+= 200;
+                    score += 200;
                 } else if(it -> type == 3) 
                 {
                     score += 300;
                 }
+                checkForHighScore();
+                it = aliens.erase(it);
+                laser.active = false;
 
             }
             else 
@@ -177,6 +178,7 @@ void Game::CheckForCollisions()
             mysteryShip.alive = false;
             laser.active =false;
             score += 500;
+            checkForHighScore();
         }
         
     }
@@ -257,6 +259,45 @@ void Game::InitGame()
     lives = 3;
     run = true;
     score = 0;
+    highScore = loadHighScoreFromFile();
+
+}
+
+void Game::checkForHighScore()
+{
+    if(score > highScore)
+    {
+        highScore = score;
+        saveHighScoreToFile(highScore);
+    }
+}
+
+void Game::saveHighScoreToFile(int highScore)
+{
+    std::ofstream highScoreFile("highscore.txt");
+    if(highScoreFile.is_open())
+    {
+        highScoreFile << highScore;
+        highScoreFile.close();
+    } else 
+    {
+        std::cerr << "Failed to save highscore to file" << std::endl;
+    }
+}
+
+int Game::loadHighScoreFromFile()
+{   
+    int loadedHighSCore = 0;
+    std::ifstream highScoreFile("highscore.txt");
+    if(highScoreFile.is_open())
+    {
+        highScoreFile >> loadedHighSCore;
+        highScoreFile.close();
+    } else 
+    {
+        std::cerr << "Failed to load highscore t file" << std::endl;
+    }
+    return loadedHighSCore;
 }
 
 void Game::Reset() 
