@@ -1,9 +1,16 @@
 #include <raylib.h>
 #include "colors.hpp"
 #include "game.hpp"
-#include "obstacle.hpp"
-#include "alien.hpp"
-#include <iostream>
+#include <string>
+
+std::string FormatWithLeadingZeros(int number, int width)
+{
+    std::string numberText = std::to_string(number);
+    int leadingZero = width - numberText.length();
+    numberText = std::string(leadingZero, '0') + numberText;
+
+    return numberText;
+}
 
 
 int main() 
@@ -41,9 +48,14 @@ int main()
         for(int i = 0 ; i < game.lives; i++) 
         {
             float x = 50.0 * (i + 1);
-            // std::cout << x << std::endl;
+            
             DrawTextureV(spaceshipImage, {x,745}, WHITE);
         }
+
+        DrawTextEx(font, "SCORE",{50,15},34,2,yellow);
+        std::string scoreText = FormatWithLeadingZeros(game.score, 5);
+        DrawTextEx(font, scoreText.c_str(),{50,40},34,2,yellow);
+        
         game.Draw();
         
         EndDrawing();

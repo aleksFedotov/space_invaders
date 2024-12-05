@@ -137,6 +137,17 @@ void Game::CheckForCollisions()
             {
                 it = aliens.erase(it);
                 laser.active = false;
+                if(it -> type == 1)
+                {
+                    score += 100;
+                } else if(it -> type == 2)
+                {
+                    score+= 200;
+                } else if(it -> type == 3) 
+                {
+                    score += 300;
+                }
+
             }
             else 
             {
@@ -165,6 +176,7 @@ void Game::CheckForCollisions()
         {
             mysteryShip.alive = false;
             laser.active =false;
+            score += 500;
         }
         
     }
@@ -244,6 +256,7 @@ void Game::InitGame()
     mysteryShipSpawnInterval = GetRandomValue(10,20);
     lives = 3;
     run = true;
+    score = 0;
 }
 
 void Game::Reset() 
