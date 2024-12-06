@@ -7,7 +7,7 @@
 Game::Game()
 {
     music = LoadMusicStream("Sounds/music.ogg");
-    explosionSound = LoadSound("Sounds/explosion.ogg");
+    explosionSound = LoadSound("Sounds/explosion.wav");
     PlayMusicStream(music);
     InitGame();
 }

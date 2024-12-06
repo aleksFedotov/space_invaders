@@ -24,7 +24,7 @@ int main()
     InitWindow(windowWidth +offset, windowHeight + 2 * offset, "C++ Space Invaders");
     InitAudioDevice();
 
-    Font font = LoadFontEx("Font/monogram.ttf", 64,0,0);
+    Font font = LoadFontEx("Font/space_invaders.ttf", 64,0,0);
     Texture2D spaceshipImage = LoadTexture("Graphics/spaceship.png");
 
     SetTargetFPS(60);
@@ -58,13 +58,13 @@ int main()
             DrawTextureV(spaceshipImage, {x,745}, WHITE);
         }
 
-        DrawTextEx(font, "SCORE",{50,15},34,2,yellow);
+        DrawTextEx(font, "SCORE",{50,25},34,2,yellow);
         std::string scoreText = FormatWithLeadingZeros(game.score, 5);
-        DrawTextEx(font, scoreText.c_str(),{50,40},34,2,yellow);
+        DrawTextEx(font, scoreText.c_str(),{50,50},34,2,yellow);
 
-        DrawTextEx(font, "HIGH-SCORE", {570, 15}, 34, 2, yellow);
+        DrawTextEx(font, "HIGH-SCORE", {550, 25}, 34, 2, yellow);
         std::string highscoreText = FormatWithLeadingZeros(game.highScore, 5);
-        DrawTextEx(font, highscoreText.c_str(), {655, 40}, 34, 2, yellow);
+        DrawTextEx(font, highscoreText.c_str(), {640, 50}, 34, 2, yellow);
         
 
         
