@@ -106,6 +106,13 @@ void Game::LevelUp()
 {
     
     aliens = CreateAliens();
+    score += level * 500;
+    score += lives * 200;
+
+    float timeElapsed = GetTime() - waveStartTime;
+    int waveBonus = std::max(0, 1000 - int(timeElapsed * 50));
+    score += waveBonus;
+    waveStartTime = GetTime();
     level++;
     
 }
@@ -167,13 +174,13 @@ void Game::CheckForCollisions()
                 PlaySound(explosionSound);
                 if(it -> type == 1)
                 {
-                    score += 100;
+                    score += 10;
                 } else if(it -> type == 2)
                 {
-                    score += 200;
+                    score += 20;
                 } else if(it -> type == 3) 
                 {
-                    score += 300;
+                    score += 30;
                 }
                 checkForHighScore();
                 it = aliens.erase(it);
@@ -214,7 +221,7 @@ void Game::CheckForCollisions()
         {
             mysteryShip.alive = false;
             laser.active =false;
-            score += 500;
+            score += 200;
             checkForHighScore();
             PlaySound(explosionSound);
 
@@ -301,6 +308,7 @@ void Game::InitGame()
     highScore = loadHighScoreFromFile();
     level = 1;
     alienSpeed = 1;
+    waveStartTime = GetTime();
 
 }
 

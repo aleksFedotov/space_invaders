@@ -36,6 +36,7 @@ private:
     float lastTimeSpawn;
     Sound explosionSound;
     float alienSpeed;
+    float waveStartTime;
 public:
     Game();
     ~Game();
