@@ -87,6 +87,29 @@ std::vector<Alien> Game::CreateAliens()
     return aliens;
 }
 
+void Game::UpdateAlienSpeed()
+{
+    float baseSpeed = 1.0;                
+    float levelIncrement = 0.1;           
+    float alienSpeedIncrement = 0.05;     
+
+    int remainingAliens = aliens.size();
+    int totalAliens = 55;                  
+
+    alienSpeed = baseSpeed
+                 + (level - 1) * levelIncrement
+                 + (float(totalAliens - remainingAliens) / totalAliens) * alienSpeedIncrement;
+//    std::cout << alienSpeed << std::endl;
+}
+
+void Game::LevelUp()
+{
+    
+    aliens = CreateAliens();
+    level++;
+    
+}
+
 void Game::MoveAliens()
 {
     for(auto& alien : aliens) {
@@ -102,7 +125,7 @@ void Game::MoveAliens()
 
            
         }
-        alien.Update(alienDirection);
+        alien.Update(alienDirection * alienSpeed);
     }
 
 }
@@ -135,6 +158,7 @@ void Game::CheckForCollisions()
     // Spaceship Lasers
     for(auto& laser : spaceship.lasers)
     {
+       
         auto it = aliens.begin();
         while (it != aliens.end())
         {
@@ -154,6 +178,8 @@ void Game::CheckForCollisions()
                 checkForHighScore();
                 it = aliens.erase(it);
                 laser.active = false;
+                UpdateAlienSpeed();
+                
 
             }
             else 
@@ -161,6 +187,11 @@ void Game::CheckForCollisions()
                 ++it;
             }
         }
+
+        if(aliens.size() == 0) 
+            {
+                LevelUp();
+            }
 
         for(auto& obstacle : obstacles) 
         {
@@ -268,6 +299,8 @@ void Game::InitGame()
     run = true;
     score = 0;
     highScore = loadHighScoreFromFile();
+    level = 1;
+    alienSpeed = 1;
 
 }
 

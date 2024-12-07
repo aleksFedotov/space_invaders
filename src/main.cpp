@@ -45,7 +45,8 @@ int main()
         DrawLineEx({25,730}, {775,730}, 3, yellow);
         if(game.run) 
         {
-            DrawTextEx(font, "LEVEL 01", {570, 740},34,2,yellow);
+            std::string levelText = FormatWithLeadingZeros(game.level, 2);
+            DrawTextEx(font, ("LEVEL " + levelText).c_str(), {570, 740},34,2,yellow);
         } else 
         {
             DrawTextEx(font, "GAME OVER", {570, 740},34,2,yellow);

@@ -22,6 +22,8 @@ private:
     void checkForHighScore();
     void saveHighScoreToFile(int highScore);
     int loadHighScoreFromFile();
+    void UpdateAlienSpeed();
+    void LevelUp();
     std::vector<Obstacle> obstacles;
     std::vector<Alien> aliens;
     Spaceship spaceship;
@@ -33,6 +35,7 @@ private:
     float mysteryShipSpawnInterval;
     float lastTimeSpawn;
     Sound explosionSound;
+    float alienSpeed;
 public:
     Game();
     ~Game();
@@ -43,6 +46,7 @@ public:
     int lives;
     int score;
     int highScore;
+    int level;
     Music music;
 };
 
