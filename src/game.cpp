@@ -156,7 +156,7 @@ void Game::AlienShootLaser()
         Alien& alien = aliens[randomIndex];
 
         alienLasers.push_back(Laser({alien.position.x + alien.alienWidthScaled/2,
-                                    alien.position.y - alien.alienHeightScaled },6));
+                                    alien.position.y + alien.alienHeightScaled },6));
         timeLastAlienFired = GetTime();
     }
 }
