@@ -33,7 +33,17 @@ int main()
 
 
     
+    Texture2D background = LoadTexture("Graphics/SpaceInvaders_Background.png");
+
+
    
+    Texture2D backgroundBuildings = LoadTexture("Graphics/SpaceInvaders_BackgroundBuildings.png");
+
+    int backgroundBuildingsWidth = backgroundBuildings.width * 3;
+    int backgroundBuildingsHeight = backgroundBuildings.height * 3;
+
+    Texture2D BackgroundFloor = LoadTexture("Graphics/SpaceInvaders_BackgroundFloor.png");
+
 
     while(!WindowShouldClose()) {
         UpdateMusicStream(game.music);
@@ -41,6 +51,34 @@ int main()
         game.Update();
         BeginDrawing();
         ClearBackground(grey);
+        // Background Star Sky 
+        for (int x = 0; x < windowWidth + background.width; x += background.width)
+        {
+            for (int y = 0; y < windowHeight; y += background.height)
+            {   
+        
+                DrawTexture(background, x, y, WHITE);
+                
+            }
+        }
+        // Background Buildings 
+        for (int x = 0; x < windowWidth + backgroundBuildingsWidth; x += backgroundBuildingsWidth)
+        {
+            Rectangle source = { 0, 0, (float)backgroundBuildings.width, (float)backgroundBuildings.height };  
+            Rectangle dest = { (float)x, 350.0, (float)backgroundBuildingsWidth, (float)backgroundBuildingsHeight };  
+            Vector2 origin = { 0, 0 };  
+            DrawTexturePro(backgroundBuildings, source, dest, origin, 0.0f, WHITE);
+        }
+        // Background DArk Floor 
+        for (int x = 0; x < windowWidth + BackgroundFloor.width; x += BackgroundFloor.width)
+        {
+            for (int y = 350 + backgroundBuildingsHeight; y < windowHeight + BackgroundFloor.height *2; y += BackgroundFloor.height)
+            {   
+                
+                DrawTexture(BackgroundFloor, x, y, WHITE);
+                
+            }
+        }
         DrawRectangleRoundedLines({10,10,780,780}, 0.18 ,20,yellow);
         DrawLineEx({25,730}, {775,730}, 3, yellow);
         if(game.run) 
@@ -73,7 +111,9 @@ int main()
         
         EndDrawing();
     }
-
-   CloseWindow();
-   CloseAudioDevice();
+    UnloadTexture(background);
+    UnloadTexture(backgroundBuildings);
+    UnloadTexture(BackgroundFloor);
+    CloseWindow();
+    CloseAudioDevice();
 }
