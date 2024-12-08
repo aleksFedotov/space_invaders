@@ -120,7 +120,7 @@ void Game::LevelUp()
 void Game::MoveAliens()
 {
     for(auto& alien : aliens) {
-        if(alien.position.x + alien.alienImages[alien.type -1].width > GetScreenWidth() - 25 ) 
+        if(alien.position.x + alien.alienWidthScaled > GetScreenWidth() - 25 ) 
         {
             alienDirection = -1;
             MoveDownAliens(4);
@@ -132,7 +132,8 @@ void Game::MoveAliens()
 
            
         }
-        alien.Update(alienDirection * alienSpeed);
+        alien.Update(alienDirection * alienSpeed, GetFrameTime());
+        
     }
 
 }
@@ -154,8 +155,8 @@ void Game::AlienShootLaser()
 
         Alien& alien = aliens[randomIndex];
 
-        alienLasers.push_back(Laser({alien.position.x + alien.alienImages[alien.type -1].width/2,
-                                    alien.position.y - alien.alienImages[alien.type -1].height },6));
+        alienLasers.push_back(Laser({alien.position.x + alien.alienWidthScaled/2,
+                                    alien.position.y - alien.alienHeightScaled },6));
         timeLastAlienFired = GetTime();
     }
 }
